@@ -40,7 +40,7 @@ NovaGoogleMaps::make('Location')
 ## Support:
 support@jfeid.gr
 
-https://jfeid.gr
+Or use the [Issues](https://github.com/jfeid/nova-google-maps/issues)
 
 ## License
 
