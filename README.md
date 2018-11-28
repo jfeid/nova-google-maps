@@ -29,7 +29,7 @@ GMAPS_DEFAULT_LONGITUDE=-0.118092
 GMAPS_DEFAULT_ZOOM=9
 ```
 
-## Usage:
+## Usage
 Add the following to a Nova resource:
 
 ```php
