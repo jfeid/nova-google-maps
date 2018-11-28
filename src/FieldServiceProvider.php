@@ -35,10 +35,10 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $config_path = dirname(__DIR__).'/publishable/config/nova-gmaps.php';
+        $config_path = dirname(__DIR__).'/config/nova-google-maps.php';
 
         $this->publishes(
-            [$config_path => config_path('nova-gmaps.php')],
+            [$config_path => config_path('nova-google-maps.php')],
             'config'
         );
     }
