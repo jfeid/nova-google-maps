@@ -3453,7 +3453,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         * Set the initial value for the field
         */
         setInitialValue: function setInitialValue() {
-            if (!this.value) {
+
+            this.value = this.field.value;
+
+            if (!this.value.latitude && !this.value.longitude) {
                 this.value = {
                     latitude: this.field.latitude,
                     longitude: this.field.longitude
