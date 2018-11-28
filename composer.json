@@ -7,7 +7,7 @@
             "email": "john@jfeid.gr",
             "homepage": "https://jfeid.gr",
             "role": "Developer"
-        },
+        }
     ],
     "keywords": [
         "laravel",
