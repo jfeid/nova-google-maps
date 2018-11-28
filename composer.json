@@ -1,9 +1,13 @@
 {
     "name": "jfeid/nova-google-maps",
-    "description": "A Laravel Nova field.",
+    "description": "A Laravel Nova field using Google Maps to provide latitude/longitude data.",
     "keywords": [
         "laravel",
-        "nova"
+        "nova",
+        "field",
+        "google maps",
+        "latitude",
+        "longitude"
     ],
     "license": "MIT",
     "require": {
