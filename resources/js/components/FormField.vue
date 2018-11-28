@@ -1,12 +1,19 @@
 <template>
     <default-field :field="field" :errors="errors">
         <template slot="field">
-            <input :id="field.name" type="text"
-                class="w-full form-control form-input form-input-bordered"
-                :class="errorClasses"
-                :placeholder="field.name"
-                v-model="value"
-            />
+
+            <gmap-autocomplete
+                    v-model="address"
+                    :placeholder="field.placeholder || 'Find a location'"
+                    class="w-full form-control form-input form-input-bordered"
+                    :class="errorClasses"
+                    :select-first-on-enter="true"
+                    @place_changed="setPlace"
+                    :options="{
+		        componentRestrictions: 	{ country: 'uk' }
+			}">
+            </gmap-autocomplete>
+
         </template>
     </default-field>
 </template>
@@ -19,26 +26,35 @@ export default {
 
     props: ['resourceName', 'resourceId', 'field'],
 
-    methods: {
-        /*
-         * Set the initial, internal value for the field.
-         */
-        setInitialValue() {
-            this.value = this.field.value || ''
+    data() {
+        return {
+            address: null
+        }
+    },
+
+    computed: {
+        latitudeName() {
+            return this.field.attribute+'[latitude]';
         },
+        longitudeName() {
+            return this.field.attribute+'[longitude]';
+        }
+    },
+
+    methods: {
 
         /**
          * Fill the given FormData object with the field's internal value.
          */
         fill(formData) {
-            formData.append(this.field.attribute, this.value || '')
+            formData.append(this.latitudeName, this.value.latitude);
+            formData.append(this.longitudeName, this.value.longitude);
         },
 
-        /**
-         * Update the field's internal value.
-         */
-        handleChange(value) {
-            this.value = value
+        setPlace(place) {
+            this.address         = place.formatted_address;
+            this.value.latitude  = place.geometry.location.lat();
+            this.value.longitude = place.geometry.location.lng();
         },
     },
 }
