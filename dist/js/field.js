@@ -3396,6 +3396,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3417,10 +3432,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         longitudeName: function longitudeName() {
             return this.field.attribute + '[longitude]';
+        },
+        position: function position() {
+            return {
+                lat: this.value.latitude,
+                lng: this.value.longitude
+            };
         }
     },
 
     methods: {
+
+        /**
+        * Set the initial value for the field
+        */
+        setInitialValue: function setInitialValue() {
+            if (!this.value) {
+                this.value = {
+                    latitude: this.field.latitude,
+                    longitude: this.field.longitude
+                };
+            }
+        },
+
 
         /**
          * Fill the given FormData object with the field's internal value.
@@ -3433,6 +3467,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.address = place.formatted_address;
             this.value.latitude = place.geometry.location.lat();
             this.value.longitude = place.geometry.location.lng();
+        },
+        setPosition: function setPosition(position) {
+            this.value.latitude = position.latLng.lat();
+            this.value.longitude = position.latLng.lng();
         }
     }
 });
@@ -13664,7 +13702,24 @@ var render = function() {
               },
               expression: "address"
             }
-          })
+          }),
+          _vm._v(" "),
+          _c(
+            "gmap-map",
+            {
+              staticClass: "mt-3",
+              staticStyle: { height: "400px" },
+              attrs: { center: _vm.position, zoom: _vm.field.zoom },
+              on: { click: _vm.setPosition }
+            },
+            [
+              _c("gmap-marker", {
+                attrs: { position: _vm.position, draggable: true },
+                on: { dragend: _vm.setPosition }
+              })
+            ],
+            1
+          )
         ],
         1
       )

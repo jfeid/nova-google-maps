@@ -14,6 +14,21 @@
 			}">
             </gmap-autocomplete>
 
+            <gmap-map
+                    :center="position"
+                    :zoom="field.zoom"
+                    @click="setPosition"
+                    style="height: 400px"
+                    class="mt-3"
+            >
+                <gmap-marker
+                        :position="position"
+                        :draggable="true"
+                        @dragend="setPosition"
+                ></gmap-marker>
+
+            </gmap-map>
+
         </template>
     </default-field>
 </template>
@@ -38,10 +53,28 @@ export default {
         },
         longitudeName() {
             return this.field.attribute+'[longitude]';
+        },
+        position() {
+            return {
+                lat: this.value.latitude,
+                lng: this.value.longitude
+            }
         }
     },
 
     methods: {
+
+        /**
+        * Set the initial value for the field
+        */
+        setInitialValue() {
+            if (!this.value) {
+                this.value = {
+                    latitude: this.field.latitude,
+                    longitude: this.field.longitude
+                };
+            }
+        },
 
         /**
          * Fill the given FormData object with the field's internal value.
@@ -55,6 +88,11 @@ export default {
             this.address         = place.formatted_address;
             this.value.latitude  = place.geometry.location.lat();
             this.value.longitude = place.geometry.location.lng();
+        },
+
+        setPosition(position) {
+            this.value.latitude  = position.latLng.lat();
+            this.value.longitude = position.latLng.lng();
         },
     },
 }
