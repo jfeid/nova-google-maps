@@ -1,6 +1,14 @@
 {
     "name": "jfeid/nova-google-maps",
     "description": "A Laravel Nova field using Google Maps to provide latitude/longitude data.",
+    "authors": [
+        {
+            "name": "Ioannis Feidaros",
+            "email": "john@jfeid.gr",
+            "homepage": "https://jfeid.gr",
+            "role": "Developer"
+        },
+    ],
     "keywords": [
         "laravel",
         "nova",
