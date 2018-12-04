@@ -12,7 +12,7 @@ composer require jfeid/nova-google-maps
 Publish the package configuration to your Laravel config directory:
 
 ```bash
-php artisan vendor:publish --provider="Jfeid\NovaGoogleMaps\FieldServiceProvider"
+php artisan vendor:publish --provider="Jfeid\NovaGoogleMaps\FieldServiceProvider" --tag="config"
 ```
 You need to type your Google Map API key in the `.env` file as follows:
 
@@ -40,15 +40,16 @@ NovaGoogleMaps::make('Location')->setValue($this->location_lat, $this->location_
 
 The field requires to initialize its value using the `setValue` method by passing your model's lat/lng fields as parameters.
 
-Also the field requires to know your names of the model's lat/lng fields.
+Also the field requires to know your names of the model's lat/lng fields in order to use them in POST requests.
 By default, the field will use the base attribute ('location' in this example) suffixed with `_lat` and `_lng`.
 For example:
 
-```php
-// For latitude
-$object->location_lat
-// For longitude
-$object->location_lng
+```bash
+// POST data
+...
+location_lat=40.2711861
+location_lng=22.4755078
+...
 ```  
 
 If the default naming does not work for you, you can explicitly set the attribute names for lat/lng as follows:
