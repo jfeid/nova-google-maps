@@ -1,6 +1,7 @@
 ## Nova Google Map Field
 
-A Nova field to get the coordinates by typing a street adddress or by placing a marker on map
+A [Laravel Nova](https://nova.laravel.com) field that uses Google Maps to update latitude/longitude model fields.
+
 ## Installation
 
 Install the package in to a Laravel app that uses Nova via composer:
@@ -22,10 +23,10 @@ Optionally, you can adjust the following configuration options in the `.env` fil
 
 ```bash
 # Default latitude value when empty
-GMAPS_DEFAULT_LATITUDE=51.509865
+GMAPS_DEFAULT_LATITUDE=
 # Default longitude value when empty
-GMAPS_DEFAULT_LONGITUDE=-0.118092
-# Default map zoom value when empty
+GMAPS_DEFAULT_LONGITUDE=
+# Default map zoom value
 GMAPS_DEFAULT_ZOOM=9
 ```
 
@@ -34,13 +35,26 @@ Add the following to a Nova resource:
 
 ```php
 
-NovaGoogleMaps::make('Location')
+NovaGoogleMaps::make('Location')->setValue($this->location_lat, $this->location_lng)
 ```
 
-## Support:
-support@jfeid.gr
+The field requires to initialize its value using the `setValue` method by passing your model's lat/lng fields as parameters.
 
-Or use the [Issues](https://github.com/jfeid/nova-google-maps/issues)
+Also the field requires to know your names of the model's lat/lng fields.
+By default, the field will use the base attribute ('location' in this example) suffixed with `_lat` and `_lng`.
+For example:
+
+```php
+// For latitude
+$object->location_lat
+// For longitude
+$object->location_lng
+```  
+
+If the default naming does not work for you, you can explicitly set the attribute names for lat/lng as follows:
+```php
+NovaGoogleMaps::make('Location')->setAttributes('my_latitude', 'my_longitude')
+``` 
 
 ## License
 

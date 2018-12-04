@@ -3198,7 +3198,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         getCoordsLabel: function getCoordsLabel() {
-            return this.field.value.latitude + ',' + this.field.value.longitude;
+            return this.field.latitude + ',' + this.field.longitude;
         }
     }
 });
@@ -3290,7 +3290,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         getCoordsLabel: function getCoordsLabel() {
-            return this.field.value.latitude + ',' + this.field.value.longitude;
+            return this.field.latitude + ',' + this.field.longitude;
         }
     }
 
@@ -3427,22 +3427,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            address: null
+            address: null,
+            latitude: null,
+            longitude: null
         };
     },
 
 
     computed: {
-        latitudeName: function latitudeName() {
-            return this.field.attribute + '[latitude]';
+        latitudeAttr: function latitudeAttr() {
+            return this.field.latitude_attr;
         },
-        longitudeName: function longitudeName() {
-            return this.field.attribute + '[longitude]';
+        longitudeAttr: function longitudeAttr() {
+            return this.field.longitude_attr;
         },
         position: function position() {
+            console.log('position lat: ' + this.latitude);
+            console.log('position lng: ' + this.longitude);
             return {
-                lat: this.value.latitude,
-                lng: this.value.longitude
+                lat: this.latitude,
+                lng: this.longitude
             };
         }
     },
@@ -3453,15 +3457,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         * Set the initial value for the field
         */
         setInitialValue: function setInitialValue() {
-
-            this.value = this.field.value;
-
-            if (!this.value.latitude && !this.value.longitude) {
-                this.value = {
-                    latitude: this.field.latitude,
-                    longitude: this.field.longitude
-                };
-            }
+            console.log('setInitialValue');
+            this.latitude = this.field.latitude;
+            this.longitude = this.field.longitude;
         },
 
 
@@ -3469,17 +3467,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * Fill the given FormData object with the field's internal value.
          */
         fill: function fill(formData) {
-            formData.append(this.latitudeName, this.value.latitude);
-            formData.append(this.longitudeName, this.value.longitude);
+            formData.append(this.latitudeAttr, this.latitude);
+            formData.append(this.longitudeAttr, this.longitude);
         },
         setPlace: function setPlace(place) {
             this.address = place.formatted_address;
-            this.value.latitude = place.geometry.location.lat();
-            this.value.longitude = place.geometry.location.lng();
+            this.latitude = place.geometry.location.lat();
+            this.longitude = place.geometry.location.lng();
         },
         setPosition: function setPosition(position) {
-            this.value.latitude = position.latLng.lat();
-            this.value.longitude = position.latLng.lng();
+            this.latitude = position.latLng.lat();
+            this.longitude = position.latLng.lng();
         }
     }
 });

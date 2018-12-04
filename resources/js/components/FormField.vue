@@ -43,21 +43,23 @@ export default {
 
     data() {
         return {
-            address: null
+            address: null,
+            latitude: null,
+            longitude: null
         }
     },
 
     computed: {
-        latitudeName() {
-            return this.field.attribute+'[latitude]';
+        latitudeAttr() {
+            return this.field.latitude_attr;
         },
-        longitudeName() {
-            return this.field.attribute+'[longitude]';
+        longitudeAttr() {
+            return this.field.longitude_attr;
         },
         position() {
             return {
-                lat: this.value.latitude,
-                lng: this.value.longitude
+                lat: this.latitude,
+                lng: this.longitude
             }
         }
     },
@@ -68,34 +70,27 @@ export default {
         * Set the initial value for the field
         */
         setInitialValue() {
-
-            this.value = this.field.value;
-
-            if (!this.value.latitude && !this.value.longitude) {
-                this.value = {
-                    latitude: this.field.latitude,
-                    longitude: this.field.longitude
-                };
-            }
+            this.latitude  = this.field.latitude;
+            this.longitude = this.field.longitude;
         },
 
         /**
          * Fill the given FormData object with the field's internal value.
          */
         fill(formData) {
-            formData.append(this.latitudeName, this.value.latitude);
-            formData.append(this.longitudeName, this.value.longitude);
+            formData.append(this.latitudeAttr, this.latitude);
+            formData.append(this.longitudeAttr, this.longitude);
         },
 
         setPlace(place) {
-            this.address         = place.formatted_address;
-            this.value.latitude  = place.geometry.location.lat();
-            this.value.longitude = place.geometry.location.lng();
+            this.address   = place.formatted_address;
+            this.latitude  = place.geometry.location.lat();
+            this.longitude = place.geometry.location.lng();
         },
 
         setPosition(position) {
-            this.value.latitude  = position.latLng.lat();
-            this.value.longitude = position.latLng.lng();
+            this.latitude  = position.latLng.lat();
+            this.longitude = position.latLng.lng();
         },
     },
 }

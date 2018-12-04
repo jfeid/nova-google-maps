@@ -8,7 +8,7 @@ export default {
 
     methods: {
         getCoordsLabel() {
-            return this.field.value.latitude + ',' + this.field.value.longitude;
+            return this.field.latitude + ',' + this.field.longitude;
         }
     }
 }
