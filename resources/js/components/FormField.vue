@@ -9,9 +9,7 @@
                     :class="errorClasses"
                     :select-first-on-enter="true"
                     @place_changed="setPlace"
-                    :options="{
-		        componentRestrictions: 	{ country: 'uk' }
-			}">
+                    :options="{}">
             </gmap-autocomplete>
 
             <gmap-map
