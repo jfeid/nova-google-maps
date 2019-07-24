@@ -4,6 +4,7 @@ namespace Jfeid\NovaGoogleMaps;
 
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Illuminate\Support\Facades\Log;
 
 class NovaGoogleMaps extends Field
 {
@@ -57,9 +58,14 @@ class NovaGoogleMaps extends Field
 
     public function setValue($latitude, $longitude)
     {
+        if (is_null($latitude) && is_null($longitude)) {
+            $latitude = config('nova-google-maps.default_latitude');
+            $longitude = config('nova-google-maps.default_longitude');
+        }
+
         return $this->withMeta([
-            'latitude'  => $latitude,
-            'longitude' => $longitude
+            'latitude'  => floatval($latitude),
+            'longitude' => floatval($longitude)
         ]);
     }
 
