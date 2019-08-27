@@ -3,12 +3,13 @@
         <template slot="field">
 
             <gmap-autocomplete
-                    v-model="address"
+                    :value="address"
                     :placeholder="field.placeholder || 'Find a location'"
                     class="w-full form-control form-input form-input-bordered"
                     :class="errorClasses"
                     :select-first-on-enter="true"
                     @place_changed="setPlace"
+                    @input="value = $event.target.value"
                     :options="{}">
             </gmap-autocomplete>
 
