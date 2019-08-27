@@ -48,6 +48,10 @@ export default {
         }
     },
 
+    mounted: function() {
+        console.log('Mounted branch');
+    },
+
     computed: {
         latitudeAttr() {
             return this.field.latitude_attr;
