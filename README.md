@@ -2,6 +2,10 @@
 
 A [Laravel Nova](https://nova.laravel.com) field that uses Google Maps to update latitude/longitude model fields.
 
+## Requirements
+
+Package supports Nova 2.x (Laravel 5.8.x), Vue 2.6.x 
+
 ## Installation
 
 Install the package in to a Laravel app that uses Nova via composer:
